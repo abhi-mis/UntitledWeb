@@ -39,7 +39,9 @@ export default function ResourceForm() {
   };
 
   return (
+    
     <div className="w-full p-6 bg-white rounded-lg shadow-lg">
+      
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
         <Plus size={24} className="text-blue-600" />
         Add New Resource
