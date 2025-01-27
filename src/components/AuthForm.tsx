@@ -1,30 +1,36 @@
+// filepath: /src/components/AuthForm.tsx
 import React, { useState } from 'react';
 import { Lock, Mail, User, ArrowRight } from 'lucide-react';
 import { auth } from '../lib/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/userSlice';
 import toast from 'react-hot-toast';
+
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-    if (isLogin) {
-    await signInWithEmailAndPassword(auth, email, password);
-    toast.success('Logged in successfully!');
-    } else {
-    await createUserWithEmailAndPassword(auth, email, password);
-    toast.success('Account created successfully!');
-    // You may also want to store the name in the database here if needed
-    }
+      if (isLogin) {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        dispatch(setUser(userCredential.user));
+        toast.success('Logged in successfully!');
+      } else {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        dispatch(setUser(userCredential.user));
+        toast.success('Account created successfully!');
+        // You may also want to store the name in the database here if needed
+      }
     } catch (error) {
-    toast.error('Authentication failed');
+      toast.error('Authentication failed');
     }
-    };
+  };
 
   return (
     <div className="min-h-screen min-w-full bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex items-center justify-center">
@@ -36,7 +42,7 @@ export default function AuthForm() {
 
         {/* Form container */}
         <div className="backdrop-blur-lg bg-black/30 p-8 rounded-2xl shadow-2xl border border-gray-800">
-        <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-pink-400 text-white bg-clip-text">
+          <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-pink-400 text-white bg-clip-text">
             UntitledWeb
           </h2>
           <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">

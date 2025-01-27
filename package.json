@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
+    "firebase": "^10.8.0",
     "lucide-react": "^0.344.0",
+    "openai": "^4.80.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "firebase": "^10.8.0",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

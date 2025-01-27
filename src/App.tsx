@@ -1,20 +1,25 @@
-import { useEffect, useState } from 'react';
+// filepath: /src/App.tsx
+import { useEffect } from 'react';
 import { auth } from './lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Toaster } from 'react-hot-toast';
 import AuthForm from './components/AuthForm';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from './store/userSlice';
+import { RootState } from './store/store';
 
 function App() {
-  const [user, setUser] = useState(auth.currentUser);
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      dispatch(setUser(user));
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   if (!user) {
     return (
@@ -27,7 +32,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar user={user} />
+      <Navbar />
       <Dashboard user={user} />
       <Toaster position="top-center" />
     </div>
