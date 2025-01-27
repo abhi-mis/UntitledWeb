@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY,
+  apiKey: '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',
   defaultHeaders: {
     "HTTP-Referer": window.location.href,
     "X-Title": "Chat Application",
