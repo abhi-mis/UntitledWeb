@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: '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',
+  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY,
   defaultHeaders: {
     "HTTP-Referer": window.location.href,
     "X-Title": "Chat Application",
@@ -26,7 +26,7 @@ export const generateChatResponse = async (message: string) => {
         }
       ],
       temperature: 0.7,
-      max_tokens: 1000,
+      max_tokens: 100000,
     });
 
     console.log('Received response:', completion);
