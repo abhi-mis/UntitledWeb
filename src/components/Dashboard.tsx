@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { User } from 'firebase/auth';
 import { 
   Bookmark, Calendar, FileText, CheckCircle, ChevronRight, 
-  Book, Link, X, Send, Bot, Sparkles
+  Book, Link, X, Send, Bot, Sparkles,
+  Pen
 } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
@@ -11,6 +12,7 @@ import Notes from './Notes';
 import DateManager from './Dates';
 import TaskManager from './TaskManager';
 import Links from './Links';
+import Canva from './Canva';
 import { generateChatResponse } from '../store/openai';
 
 interface DashboardProps {
@@ -64,6 +66,7 @@ export default function Dashboard({ user }: DashboardProps) {
     { id: 'dates', label: 'Important Dates', icon: Calendar, color: 'violet' },
     { id: 'tasks', label: 'Tasks', icon: Book, color: 'red' },
     { id: 'links', label: 'Important Links', icon: Link, color: 'yellow' },
+    { id: 'canva', label: 'WhiteBoard', icon: Pen, color: 'green' },
   ];
 
   useEffect(() => {
@@ -246,6 +249,7 @@ export default function Dashboard({ user }: DashboardProps) {
                 {activeTab === 'dates' && <DateManager />}
                 {activeTab === 'tasks' && <TaskManager />}
                 {activeTab === 'links' && <Links />}
+                {activeTab === 'canva' && <Canva />}
               </div>
             </div>
           </div>
